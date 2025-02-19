@@ -2,7 +2,6 @@ import mysql.connector
 import bcrypt
 import random
 import smtplib
-import re
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 app = Flask(__name__)
@@ -20,10 +19,10 @@ def get_db_connection():
 
 def send_otp(email, otp):
     sender_email = "sai402707@gmail.com"  # Replace with your Gmail
-    sender_password = ""  # Replace with your Google App Password
+    sender_password = "vgtydqchwgscnrzs"  # Replace with your Google App Password
     
-    subject = "Password Reset OTP"
-    body = f"Your OTP for password reset is: {otp}"
+    subject = "Welcome to Mohan's Mini Chatbot"
+    body = f"Welcome to Mohan's Mini Chatbot\nYour OTP for password reset is: {otp}\nThanks for registering!"
     
     message = f"Subject: {subject}\n\n{body}"
     
@@ -123,8 +122,12 @@ def forgot_password():
                 flash("No account exists with that email.")
                 return render_template('forgot_password.html', step=1)
 
-        elif otp and otp == session.get('otp'):
-            return render_template('forgot_password.html', step=3)
+        elif otp:
+            if otp == session.get('otp'):
+                return render_template('forgot_password.html', step=3)
+            else:
+                flash("You have entered the wrong OTP. Please enter the correct OTP.")
+                return render_template('forgot_password.html', step=2)
 
         elif new_password and confirm_password:
             if new_password == confirm_password:

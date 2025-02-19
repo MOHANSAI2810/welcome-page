@@ -1,78 +1,119 @@
-/* General Styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-    height: 100vh;
+/* General Styles */
+.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    width: 100%;
+    height: 100vh; /* Ensure it takes full height */
+    border-radius: 15px;
+    flex-direction: column;
+    box-shadow: 0 0 30px 5px rgba(255, 102, 0, 0.8); /* Adjust spread and intensity */
+    background: #1a1a1a; /* Dark background */
+    padding: 20px; /* Add padding to prevent content overflow */
+    position: relative; /* Ensure correct shadow rendering */
+}
+/* Change selection color for all elements */
+::selection {
+    background: #ff3b3b; /* Red background */
+    color: white; /* White text when selected */
 }
 
-.container {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
+/* For Firefox */
+::-moz-selection {
+    background: #ff3b3b;
+    color: white;
 }
+
+/* Ensure label text inherits the selection color */
+label::selection {
+    background: #ff3b3b;
+    color: white;
+}
+#email::selection {
+    background: #ff3b3b; /* Red background */
+    color: white; /* White text when selected */
+}
+
+
 
 .form-container {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.7);
     padding: 30px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    width: 350px;
+    text-align: center;
+    
+}
+
+/* To ensure the outer container has a glowing effect */
+
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
 
 h2 {
-    text-align: center;
+    color: #fff;
     margin-bottom: 20px;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {
+input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: none;
     border-radius: 5px;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
-    font-size: 16px;
+    background: #333;
+    color: white;
 }
 
 button {
     width: 100%;
-    padding: 12px;
-    background-color: #2575fc;
+    padding: 10px;
     border: none;
     border-radius: 5px;
-    color: #fff;
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 button:hover {
-    background-color: #6a11cb;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(255, 75, 43, 0.8);
 }
 
-a {
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s;
+p, a {
+    color: #bbb;
 }
 
 a:hover {
-    color: #2575fc;
+    color: #ff4b2b;
 }
 
-p {
-    text-align: center;
-    margin-top: 20px;
+/* Flash Messages */
+.flash-messages {
+    background: rgba(255, 75, 43, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    color: #ff4b2b;
+    margin-bottom: 15px;
+}
+
+/* Glass Effect */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
