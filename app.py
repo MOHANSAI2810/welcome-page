@@ -2,23 +2,24 @@ import mysql.connector
 import bcrypt
 import random
 import smtplib
-from flask import Flask, render_template, request, redirect, url_for, session, flash
 import os
 from dotenv import load_dotenv
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = os.getenv("SECRET_KEY")
 
 # Function to establish a connection to the MySQL database
 def get_db_connection():
     connection = mysql.connector.connect(
-        host='localhost',
-        user='root',
-        password='root',
-        database='auth_system'
+        host=os.getenv("MYSQL_ADDON_HOST"),
+        user=os.getenv("MYSQL_ADDON_USER"),
+        password=os.getenv("MYSQL_ADDON_PASSWORD"),
+        database=os.getenv("MYSQL_ADDON_DB"),
+        port=int(os.getenv("MYSQL_ADDON_PORT", 3306))  # Default to 3306
     )
     return connection
 
@@ -102,6 +103,21 @@ def login():
     
     return render_template('login.html')
 
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user' not in session:
+        flash("You need to log in first.")
+        return redirect(url_for('login'))
+    
+    return f"Welcome {session['user']} to your dashboard!"
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    flash("You have been logged out.")
+    return redirect(url_for('login'))
+
 @app.route('/forgot-password', methods=['GET', 'POST'])
 def forgot_password():
     if request.method == 'POST':
@@ -160,9 +176,7 @@ def forgot_password():
 
 # Helper function to validate password
 def validate_password(password):
-    if len(password) < 8 or not any(char.islower() for char in password) or not any(char.isupper() for char in password):
-        return False
-    return True
+    return len(password) >= 8 and any(char.islower() for char in password) and any(char.isupper() for char in password)
 
 if __name__ == '__main__':
     app.run(debug=True)
