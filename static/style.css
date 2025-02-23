@@ -1,17 +1,5 @@
 /* General Styles */
-.container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh; /* Ensure it takes full height */
-    border-radius: 15px;
-    flex-direction: column;
-    box-shadow: 0 0 30px 5px rgba(255, 102, 0, 0.8); /* Adjust spread and intensity */
-    background: #1a1a1a; /* Dark background */
-    padding: 20px; /* Add padding to prevent content overflow */
-    position: relative; /* Ensure correct shadow rendering */
-}
+
 /* Change selection color for all elements */
 ::selection {
     background: #ff3b3b; /* Red background */
@@ -34,16 +22,22 @@ label::selection {
     color: white; /* White text when selected */
 }
 
-
+#signup{
+    text-decoration-color: #12a514;
+}
 
 .form-container {
-    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 15%; /* Adjust this value as needed */
+    transform: translate(-50%, -50%);
     padding: 30px;
     border-radius: 15px;
     width: 350px;
     text-align: center;
-    
+    background: rgba(241, 3, 3, 0.2); /* Optional: Adds transparency effect */
 }
+
 
 /* To ensure the outer container has a glowing effect */
 
@@ -51,7 +45,9 @@ label::selection {
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
+    background-image: url('image.png');
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -60,20 +56,31 @@ body {
 }
 
 h2 {
-    color: #fff;
+    font-size: 2rem;
     margin-bottom: 20px;
+    color: #fff; /* White text for header */
+    background: linear-gradient(135deg, #12a514, #c4d80e); /* Gradient text background */
+    -webkit-background-clip: text;
+    color: transparent;
+    font-weight: bold;
 }
 
 input {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     margin: 10px 0;
-    border: none;
+    border:rgb(228, 12, 52);
     border-radius: 5px;
-    background: #333;
-    color: white;
+    background: #2065b3;
+    color: rgb(251, 251, 251);
+    box-shadow: 0px 5px 10px rgb(123, 138, 10);
+    
 }
-
+input::placeholder {
+    color: rgb(200, 253, 7); /* Lighter white */
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
 button {
     width: 100%;
     padding: 10px;
@@ -98,13 +105,22 @@ p, a {
 a:hover {
     color: #ff4b2b;
 }
+.site-icon {
+    width: 100px;  /* Adjust size as needed */
+    height: 100px;
+    border-radius: 100%;  /* Makes it circular */
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    object-fit: cover; /* Ensures the image fits well */
+}
 
 /* Flash Messages */
 .flash-messages {
     background: rgba(255, 75, 43, 0.2);
     padding: 10px;
     border-radius: 5px;
-    color: #ff4b2b;
+    color: #01fc09;
     margin-bottom: 15px;
 }
 
@@ -115,5 +131,5 @@ a:hover {
     -webkit-backdrop-filter: blur(10px);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 5px 15px rgba(255, 105, 30, 0.3);
 }

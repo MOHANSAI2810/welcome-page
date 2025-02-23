@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+    <img src="{{ url_for('static', filename='images/icon.png') }}" class="site-icon">
     <div class="container">
         <div class="form-container glass-effect">
             <h2>Sign Up</h2>
@@ -14,11 +16,11 @@
             <!-- Flash Messages -->
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
-                    <div class="message">
+                    <ul class="flash-messages">
                         {% for message in messages %}
-                            <p>{{ message }}</p>
+                            <li>{{ message }}</li>
                         {% endfor %}
-                    </div>
+                    </ul>
                 {% endif %}
             {% endwith %}
 

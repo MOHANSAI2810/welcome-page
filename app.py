@@ -3,6 +3,11 @@ import bcrypt
 import random
 import smtplib
 from flask import Flask, render_template, request, redirect, url_for, session, flash
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -18,8 +23,8 @@ def get_db_connection():
     return connection
 
 def send_otp(email, otp):
-    sender_email = "sai402707@gmail.com"  # Replace with your Gmail
-    sender_password = "vgtydqchwgscnrzs"  # Replace with your Google App Password
+    sender_email = os.getenv("MAIL_USERNAME")
+    sender_password = os.getenv("MAIL_PASSWORD")
     
     subject = "Welcome to Mohan's Mini Chatbot"
     body = f"Welcome to Mohan's Mini Chatbot\nYour OTP for password reset is: {otp}\nThanks for registering!"
@@ -130,19 +135,23 @@ def forgot_password():
                 return render_template('forgot_password.html', step=2)
 
         elif new_password and confirm_password:
-            if new_password == confirm_password:
-                hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-                cursor.execute('UPDATE users SET password = %s WHERE email = %s', (hashed_password, session['reset_email']))
-                connection.commit()
-                
-                session.pop('reset_email', None)
-                session.pop('otp', None)
-                
-                flash("Password updated successfully! Please login.")
-                return redirect(url_for('login'))
-            else:
+            if new_password != confirm_password:
                 flash("Passwords do not match.")
                 return render_template('forgot_password.html', step=3)
+
+            if not validate_password(new_password):
+                flash("Password must contain at least one uppercase letter, one lowercase letter, and be at least 8 characters long.")
+                return render_template('forgot_password.html', step=3)
+
+            hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+            cursor.execute('UPDATE users SET password = %s WHERE email = %s', (hashed_password, session['reset_email']))
+            connection.commit()
+            
+            session.pop('reset_email', None)
+            session.pop('otp', None)
+            
+            flash("Password updated successfully! Please login.")
+            return redirect(url_for('login'))
 
         cursor.close()
         connection.close()
