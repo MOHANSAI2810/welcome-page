@@ -2,4 +2,4 @@ Flask
 python-dotenv
 mysql-connector-python
 bcrypt
-guicorn
+gunicorn
